@@ -1,4 +1,0 @@
-SARS-CoV-2 Ocular Tissue Response — RNA-seq Report (interactive, hosted)
-https://claude.ai/code/artifact/821e1224-4e65-40cc-b8d3-4f124b78354c
-
-Local self-contained copy: report.html (same folder)
