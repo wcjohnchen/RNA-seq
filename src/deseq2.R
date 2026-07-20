@@ -32,7 +32,7 @@ parse_cli_args <- function(defaults) {
 }
 
 cli <- parse_cli_args(list(
-  counts_file   = "GSE164073_Eye_count_matrix.csv",
+  counts_file   = "data/GSE164073_Eye_count_matrix.csv",
   padj_cutoff   = "0.05",
   lfc_cutoff    = "1.5",
   min_count_sum = "0",

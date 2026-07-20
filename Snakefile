@@ -1,5 +1,5 @@
 # Snakemake workflow for the RNA-seq DE + GSEA pipeline.
-# Wraps scripts/deseq2.R and scripts/gsea.R
+# Wraps src/deseq2.R and src/gsea.R
 # Usage:
 #   snakemake -n                 # dry run
 #   snakemake --cores 3          # real run
@@ -27,8 +27,8 @@ rule all:
 
 rule deseq2:
     input:
-        counts = "GSE164073_Eye_count_matrix.csv",
-        script = "scripts/deseq2.R"
+        counts = "data/GSE164073_Eye_count_matrix.csv",
+        script = "src/deseq2.R"
     output:
         "results/{tissue}/de_tables/{tissue}_all_genes_CoV2_vs_mock.tsv",
         "results/{tissue}/de_tables/{tissue}_significant_CoV2_vs_mock.tsv",
@@ -36,12 +36,12 @@ rule deseq2:
         expand("results/{{tissue}}/plots/{plot}", plot=DESEQ2_PLOTS),
         "results/{tissue}/qc/qc_summary.txt"
     shell:
-        RSCRIPT + " {input.script} --tissues={wildcards.tissue}"
+        RSCRIPT + " {input.script} --tissues={wildcards.tissue} --counts_file={input.counts}"
 
 rule gsea:
     input:
         de_table = "results/{tissue}/de_tables/{tissue}_all_genes_CoV2_vs_mock.tsv",
-        script = "scripts/gsea.R"
+        script = "src/gsea.R"
     output:
         expand("results/{{tissue}}/gsea/{{tissue}}_GSEA_GO_{ont}.tsv", ont=ONTOLOGIES),
         "results/{tissue}/gsea/{tissue}_GSEA_KEGG.tsv"

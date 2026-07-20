@@ -27,18 +27,18 @@ the original authors. See [Citation](#citation--data-provenance) below.
 ## Data
 
 - **Source:** GEO accession [GSE164073](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164073)
-- **File:** `GSE164073_Eye_count_matrix.csv` — raw gene-level count matrix,
-  27,946 genes × 18 samples
+- **File:** `data/GSE164073_Eye_count_matrix.csv` — raw gene-level count
+  matrix, 27,946 genes × 18 samples
 - **Design:** 3 tissues (cornea, limbus, sclera) × 2 conditions (mock,
   SARS-CoV-2-infected) × 3 replicates = 18 samples. Sample columns are named
   `MW<n>_<tissue>_<condition>_<replicate>`, e.g. `MW1_cornea_mock_1`.
 
 If the CSV isn't present in this directory, download it from the GEO
-accession above (Supplementary file) and place it at the project root.
+accession above (Supplementary file) and place it in `data/`.
 
 ## Methods
 
-### Differential expression (`scripts/deseq2.R`)
+### Differential expression (`src/deseq2.R`)
 
 - **Each tissue is modeled independently** — its own size factors, dispersion
   trend, and contrast — rather than pooling all 18 samples into one
@@ -59,7 +59,7 @@ accession above (Supplementary file) and place it at the project root.
 - **Significance cutoff:** `padj < 0.05` and `|log2FoldChange| > 1.5`
   (CLI-configurable, see below).
 
-### Enrichment — GSEA (`scripts/gsea.R`)
+### Enrichment — GSEA (`src/gsea.R`)
 
 - Uses **GSEA**, not over-representation analysis (ORA). GSEA ranks *every*
   gene tested in a tissue by `log2FoldChange` and asks whether a gene set is
@@ -162,10 +162,10 @@ what changed, not a different computation path.
 Run in this order — `gsea.R` reads `deseq2.R`'s output tables.
 
 ```bash
-cd GSE164073_Eye_count_matrix/     # must run from the project root (relative paths)
+cd RNA-seq/     # must run from the project root (relative paths)
 
-Rscript scripts/deseq2.R
-Rscript scripts/gsea.R
+Rscript src/deseq2.R
+Rscript src/gsea.R
 ```
 
 Both scripts accept `--key=value` CLI flags; any flag left unset keeps its
@@ -174,8 +174,8 @@ default (shown below).
 **`deseq2.R`:**
 
 ```bash
-Rscript scripts/deseq2.R \
-  --counts_file=GSE164073_Eye_count_matrix.csv \
+Rscript src/deseq2.R \
+  --counts_file=data/GSE164073_Eye_count_matrix.csv \
   --padj_cutoff=0.05 \
   --lfc_cutoff=1.5 \
   --min_count_sum=0 \
@@ -185,7 +185,7 @@ Rscript scripts/deseq2.R \
 **`gsea.R`:**
 
 ```bash
-Rscript scripts/gsea.R \
+Rscript src/gsea.R \
   --tissues=cornea,limbus,sclera \
   --use_simplify=TRUE \
   --simplify_cutoff=0.7
@@ -194,7 +194,7 @@ Rscript scripts/gsea.R \
 Example — loosen the fold-change cutoff and run only one tissue:
 
 ```bash
-Rscript scripts/deseq2.R --lfc_cutoff=1 --tissues=cornea
+Rscript src/deseq2.R --lfc_cutoff=1 --tissues=cornea
 ```
 
 ### Snakemake
@@ -259,13 +259,14 @@ limitation, not something the pipeline or Snakemake wrapper introduces.
 ## Directory structure
 
 ```
-GSE164073_Eye_count_matrix/
-├── GSE164073_Eye_count_matrix.csv   # input count matrix (from GEO)
+RNA-seq/
+├── data/
+│   └── GSE164073_Eye_count_matrix.csv   # input count matrix (from GEO)
 ├── renv.lock                        # pinned package versions
 ├── .Rprofile                        # auto-activates renv for this project
 ├── renv/                            # renv infrastructure (library/ is gitignored)
 ├── Snakefile                        # optional Snakemake orchestration (see below)
-├── scripts/
+├── src/
 │   ├── deseq2.R                     # DE analysis (run first)
 │   └── gsea.R                       # GSEA enrichment (run second)
 ├── results/
