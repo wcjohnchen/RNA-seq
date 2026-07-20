@@ -24,6 +24,35 @@ the original authors. See [Citation](#citation--data-provenance) below.
 
 ---
 
+## Setup
+
+Dependencies are pinned in `renv.lock` (145 packages: R 4.5.3, Bioconductor 3.22).  In the project root, open R:
+
+```r
+install.packages("renv")   # if not already installed
+renv::restore()
+```
+
+renv::restore()` recreates the project's package environment using the versions recorded in `renv.lock` without modifying global R package library.
+
+Key package versions:
+
+| Package | Version | Source |
+|---|---|---|
+| DESeq2 | 1.50.2 | Bioconductor |
+| clusterProfiler | 4.18.4 | Bioconductor |
+| org.Hs.eg.db | 3.22.0 | Bioconductor |
+| enrichplot | 1.30.4 | Bioconductor |
+| GOSemSim | 2.36.0 | Bioconductor |
+| EnhancedVolcano | 1.28.2 | Bioconductor |
+| pheatmap | 1.0.13 | CRAN |
+| ggplot2 | 4.0.3 | CRAN |
+| RColorBrewer | 1.1-3 | CRAN |
+| gtable | 0.3.6 | CRAN |
+
+(Full list: all 145 entries in `renv.lock`, which also includes every dependency of the above.)
+
+
 ## Data
 
 - **Source:** GEO accession [GSE164073](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164073)
@@ -87,41 +116,6 @@ Significant genes per tissue (padj < 0.05, |log2FC| > 1.5), CoV2 vs. mock:
 GSEA enriched terms per tissue/category (after `simplify()` for GO):
 
 
-## Setup
-
-Dependencies are pinned in `renv.lock` (145 packages: R 4.5.3, Bioconductor
-3.22). From R, in the project root:
-
-```r
-install.packages("renv")   # if not already installed
-renv::restore()
-```
-
-renv::restore()` recreates the project's package environment using the versions recorded in `renv.lock` without modifying global R package library.
-
-**First-time disk cost:** ~2.6 GB (dominated by `org.Hs.eg.db`, the human
-gene-annotation database, at ~405 MB). This is a **one-time, per-machine**
-cost — `renv` shares a single package cache across all `renv`-managed
-projects on the same machine, so a second project needing the same packages
-costs nothing extra.
-
-Key package versions:
-
-| Package | Version | Source |
-|---|---|---|
-| DESeq2 | 1.50.2 | Bioconductor |
-| clusterProfiler | 4.18.4 | Bioconductor |
-| org.Hs.eg.db | 3.22.0 | Bioconductor |
-| enrichplot | 1.30.4 | Bioconductor |
-| GOSemSim | 2.36.0 | Bioconductor |
-| EnhancedVolcano | 1.28.2 | Bioconductor |
-| pheatmap | 1.0.13 | CRAN |
-| ggplot2 | 4.0.3 | CRAN |
-| RColorBrewer | 1.1-3 | CRAN |
-| gtable | 0.3.6 | CRAN |
-
-(Full list: all 145 entries in `renv.lock`, which also includes every
-transitive dependency of the above.)
 
 ## Running the pipeline
 
