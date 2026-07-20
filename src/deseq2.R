@@ -1,5 +1,5 @@
 #!/usr/bin/env Rscript
-# DE analysis using DESeq2: CoV2 vs mock in cornea, limbus, and sclera.
+# Differential expression (DE) analysis using DESeq2: CoV2 vs mock in cornea, limbus, and sclera.
 
 suppressMessages({
   library(DESeq2)
