@@ -83,30 +83,9 @@ accession above (Supplementary file) and place it in `data/`.
   non-deterministic between runs.
 
 ## Results summary
-
 Significant genes per tissue (padj < 0.05, |log2FC| > 1.5), CoV2 vs. mock:
-
-| Tissue | Significant | Up | Down |
-|---|---|---|---|
-| Cornea | 9 | 8 | 1 |
-| Limbus | 16 | 4 | 12 |
-| Sclera | 14 | 13 | 1 |
-
 GSEA enriched terms per tissue/category (after `simplify()` for GO):
 
-| Tissue | GO BP | GO CC | GO MF | KEGG |
-|---|---|---|---|---|
-| Cornea | 334 (211↑ / 123↓) | 84 | 100 | 95 |
-| Limbus | 188 (107↑ / 81↓) | 42 | 38 | 71 |
-| Sclera | 238 (91↑ / 147↓) | 43 | 45 | 104 |
-
-Biological read: all three tissues show an NF-κB/chemokine/complement
-inflammatory signature under infection, consistent with the original study's
-reported conclusion — but each tissue leans toward a different dominant
-program (cornea: chemokine/inflammatory; limbus: epithelial/transport genes,
-possibly tissue-identity rather than infection response; sclera:
-complement/oxidative stress — `CFB`, `C3`, `SOD2`). See `report.html` for the
-full figure set.
 
 ## Setup
 
@@ -118,8 +97,7 @@ install.packages("renv")   # if not already installed
 renv::restore()
 ```
 
-This installs every package at the exact recorded version into an isolated,
-project-local library — it does not touch your system/global R library.
+renv::restore()` recreates the project's package environment using the versions recorded in `renv.lock` without modifying global R package library.
 
 **First-time disk cost:** ~2.6 GB (dominated by `org.Hs.eg.db`, the human
 gene-annotation database, at ~405 MB). This is a **one-time, per-machine**
