@@ -1,0 +1,13 @@
+tissue	category	n_terms	n_up	n_down
+cornea	GO_BP	334	211	123
+cornea	GO_CC	84	33	51
+cornea	GO_MF	100	32	68
+cornea	KEGG	95	52	43
+limbus	GO_BP	188	107	81
+limbus	GO_CC	42	13	29
+limbus	GO_MF	38	19	19
+limbus	KEGG	71	41	30
+sclera	GO_BP	238	91	147
+sclera	GO_CC	43	4	39
+sclera	GO_MF	45	14	31
+sclera	KEGG	104	39	65

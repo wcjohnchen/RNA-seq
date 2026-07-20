@@ -1,0 +1,3 @@
+Kept 19445 / 27946 genes after filtering (rowSum > 0, i.e. drop all-zero genes only)
+Size factors: MW13_sclera_mock_1=0.936, MW14_sclera_mock_2=0.904, MW15_sclera_mock_3=1.111, MW16_sclera_CoV2_1=0.986, MW17_sclera_CoV2_2=0.885, MW18_sclera_CoV2_3=1.236
+DE testing complete: 14 significant genes (padj < 0.05, |log2FC| > 1.5)
