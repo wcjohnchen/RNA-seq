@@ -262,13 +262,13 @@ limitation, not something the pipeline or Snakemake wrapper introduces.
 RNA-seq/
 ├── data/
 │   └── GSE164073_Eye_count_matrix.csv   # input count matrix (from GEO)
-├── renv.lock                        # pinned package versions
-├── .Rprofile                        # auto-activates renv for this project
-├── renv/                            # renv infrastructure (library/ is gitignored)
-├── Snakefile                        # optional Snakemake orchestration (see below)
 ├── src/
 │   ├── deseq2.R                     # DE analysis (run first)
 │   └── gsea.R                       # GSEA enrichment (run second)
+├── Snakefile                        # optional Snakemake orchestration (see below)
+├── renv.lock                        # pinned package versions
+├── .Rprofile                        # auto-activates renv for this project
+├── renv/                            # renv infrastructure (library/ is gitignored)
 ├── results/
 │   ├── <tissue>/de_tables/          # DE result tables (.tsv)
 │   ├── <tissue>/plots/              # PCA, volcano, MA, heatmaps (.png)
@@ -276,8 +276,7 @@ RNA-seq/
 │   ├── <tissue>/gsea/               # GSEA tables + dotplots per ontology
 │   ├── summary_all_tissues.tsv      # DE gene counts, all tissues
 │   └── gsea_summary.tsv             # GSEA term counts, all tissues
-├── report.html                      # standalone interactive report (all plots embedded)
-└── report_link.txt                  # hosted copy of report.html, if published
+└── report.html                      # standalone interactive report (all plots embedded)
 ```
 
 ## Output files
