@@ -8,6 +8,8 @@ Cellular Component / Molecular Function, and KEGG pathways).
 This is a personal reanalysis for learning/portfolio purposes, independent of
 the original authors. See [Citation](#citation--data-provenance) below.
 
+📊 **[View the interactive report](https://claude.ai/code/artifact/821e1224-4e65-40cc-b8d3-4f124b78354c)** — every plot below, in one self-contained page with navigation and click-to-enlarge.
+
 ## Contents
 
 - [Data](#data)
