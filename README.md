@@ -14,12 +14,12 @@ the original authors. See [Citation](#citation--data-provenance) below.
 ## Contents
 
 - [Data](#data)
-- [Methods](#methods)
-- [Setup](#setup)
-- [Analysis Workflow](#running-the-pipeline)
+- [Computational Methods](#computational-methods)
+- [Environment Setup](#environment-setup)
+- [Running the Analysis Workflow](#running-the-analysis-workflow)
 - [Directory Structure](#directory-structure)
 - [Output Files](#output-files)
-- [Notes](#known-caveats)
+- [Notes](#notes)
 - [References](#references)
 
 
@@ -30,7 +30,7 @@ the original authors. See [Citation](#citation--data-provenance) below.
 - **Design:** 3 tissues (cornea, limbus, sclera) × 2 conditions (mock, SARS-CoV-2-infected) × 3 replicates
 
 
-## Methods
+## Computational Methods
 
 ### Differential expression (`src/deseq2.R`)
 
@@ -80,7 +80,7 @@ the original authors. See [Citation](#citation--data-provenance) below.
 - Significant genes per tissue (padj < 0.05, |log2FC| > 1.5), CoV2 vs. mock.
 
 
-## Setup
+## Enviroment Setup
 
 Dependencies are pinned in `renv.lock` (145 packages: R 4.5.3, Bioconductor 3.22).  In the project root, open R:
 
@@ -109,7 +109,7 @@ Key package versions:
 (Full list: all 145 entries in `renv.lock`, which also includes every dependency of the above.)
 
 
-## Analysis Workflow
+## Running the Analysis Workflow
 
 After [Setup](#setup) (`renv::restore()` — always required, either way),
 pick one of two ways to actually run the scripts. Both call the exact same
