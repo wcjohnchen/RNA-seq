@@ -103,8 +103,7 @@ Key package versions:
 | EnhancedVolcano | 1.28.2 | Bioconductor |
 | pheatmap | 1.0.13 | CRAN |
 | ggplot2 | 4.0.3 | CRAN |
-| RColorBrewer | 1.1-3 | CRAN |
-| gtable | 0.3.6 | CRAN |
+
 
 (Full list: all 145 entries in `renv.lock`, which also includes every dependency of the above.)
 
@@ -150,88 +149,48 @@ Rscript scripts/gsea.R \
 
 ### Snakemake
 
-- **Snakemake** — install Snakemake separately, then let it handle
-  run-order and incremental re-runs automatically.
-
-A `Snakefile` at the project root wraps `deseq2.R` and `gsea.R` **unmodified**
-— it calls them through the `--tissues=<tissue>` flag they already support,
-so each tissue runs as an independent job. Snakemake then handles run-order
-automatically (instead of you remembering to run `deseq2.R` before `gsea.R`)
-and only re-runs the specific tissue(s) whose inputs actually changed.
-
-Snakemake needs its own environment, separate from the one `renv.lock`
-manages — it's a workflow tool, not an R package, and a recent version's
-dependencies conflicted with packages already pinned for the R/Bioconductor
-side. `--no-channel-priority` is required here because this machine's
-`.condarc` sets `channel_priority: strict`, which otherwise makes the
-solver fail with spurious dependency conflicts:
+Snakemake requires a separate environment from the R project environment managed by `renv`.  To create the environment:
 
 ```bash
 mamba create -n snakemake_env -c bioconda -c conda-forge \
   --no-channel-priority snakemake-minimal=9.23.1
 ```
 
-Run from the project root, with `snakemake_env` active:
+A `Snakefile` at the project root automates execution of the DESeq2 and GSEA steps.  Run from the project root with the `snakemake_env` environment active:
 
 ```bash
 conda activate snakemake_env
 
-snakemake -n           # dry run — show what would execute
-snakemake --cores 3    # run for real, up to 3 tissues in parallel
-```
-
-`RSCRIPT` in the `Snakefile` defaults to plain `Rscript` — this works as
-long as it's reachable on `PATH` from wherever `snakemake` runs, relying on
-the project's `.Rprofile` to auto-activate `renv` (and therefore the
-correct package versions) whenever R starts here. If Snakemake lives in a
-separate environment with no R installed in it at all (as `snakemake_env`
-deliberately does here, to avoid the dependency conflict above), override
-the path at the command line instead of editing the `Snakefile`:
-
-```bash
+snakemake -n           # dry run
 snakemake --cores 3 --config rscript=/full/path/to/Rscript
 ```
 
-The two cross-tissue summary files (`results/summary_all_tissues.tsv`,
-`results/gsea_summary.tsv`) aren't produced by the R scripts in this mode —
-each script writes its summary by overwriting one shared file, which works
-when it processes all tissues in a single call but would clobber itself if
-Snakemake invoked it three separate times. A dedicated
-`aggregate_summaries` rule in the `Snakefile` rebuilds both summaries in
-plain Python directly from each tissue's already-correct output files
-instead, after all three tissues finish — no R code changes needed for
-this either.
-
-**Caveat:** GSEA term counts can show minor (single-term, boundary-case)
-variation between runs even with `set.seed(42)` — most likely `fgsea`'s
-internal parallelism consuming random numbers in a run-order-dependent way
-for genes sitting right at the significance threshold. BP, CC, and KEGG
-have reproduced exactly across every run so far; GO MF has differed by
-exactly one term in isolated cases. This is a `fgsea`/`clusterProfiler`
-limitation, not something the pipeline or Snakemake wrapper introduces.
 
 ## Directory Structure
 
 ```
 RNA-seq/
 ├── data/
-│   └── GSE164073_Eye_count_matrix.csv   # input count matrix (from GEO)
+│   └── GSE164073_Eye_count_matrix.csv   # input count matrix
 ├── src/
-│   ├── deseq2.R                     # DE analysis (run first)
-│   └── gsea.R                       # GSEA enrichment (run second)
-├── Snakefile                        # optional Snakemake orchestration (see below)
-├── renv.lock                        # pinned package versions
-├── .Rprofile                        # auto-activates renv for this project
-├── renv/                            # renv infrastructure (library/ is gitignored)
+│   ├── deseq2.R                         # differential expression analysis
+│   └── gsea.R                           # GSEA enrichment analysis
+├── Snakefile                            # optional Snakemake workflow
+├── renv.lock                            # pinned R package versions
+├── .Rprofile                            # activates renv for this project
+├── renv/                                # renv infrastructure
 ├── results/
-│   ├── <tissue>/de_tables/          # DE result tables (.tsv)
-│   ├── <tissue>/plots/              # PCA, volcano, MA, heatmaps (.png)
-│   ├── <tissue>/qc/                 # QC log per tissue
-│   ├── <tissue>/gsea/               # GSEA tables + dotplots per ontology
-│   ├── summary_all_tissues.tsv      # DE gene counts, all tissues
-│   └── gsea_summary.tsv             # GSEA term counts, all tissues
-└── report.html                      # standalone interactive report (all plots embedded)
+│   ├── <tissue>/
+│   │   ├── de_tables/                   # DE result tables (.tsv)
+│   │   ├── plots/                       # PCA, volcano, MA, heatmaps (.png)
+│   │   ├── qc/                          # QC logs (.txt)
+│   │   └── gsea/                        # GSEA tables (.tsv) and dotplots (.png)
+│   ├── summary_all_tissues.tsv          # DE gene counts across tissues
+│   └── gsea_summary.tsv                 # GSEA term counts across tissues
+└── report.html                          # interactive report
 ```
+
+
 
 ## Output files
 
