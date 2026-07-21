@@ -23,37 +23,38 @@ Cellular Component / Molecular Function, and KEGG pathways).
 
 ## Data
 
-- **Source:** GEO accession [GSE164073](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164073)
-- **File:** `data/GSE164073_Eye_count_matrix.csv` — count matrix, 27,946 genes × 18 samples
-- **Design:** 3 tissues (cornea, limbus, sclera) × 2 conditions (mock, SARS-CoV-2-infected) × 3 replicates
+**Source:** GEO accession [GSE164073](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164073)
+**File:** `data/GSE164073_Eye_count_matrix.csv` — count matrix, 27,946 genes × 18 samples
+**Design:** 3 tissues (cornea, limbus, sclera) × 2 conditions (mock, SARS-CoV-2-infected) × 3 replicates
 
 
 ## Computational Methods
 
 ### Differential expression (`src/deseq2.R`)
 
-- **Each tissue is modeled independently** — its own size factors, dispersion
+**Each tissue is modeled independently** — its own size factors, dispersion
   trend, and contrast — rather than pooling all 18 samples into one
   `~tissue + condition` design. Cornea, limbus, and sclera are different
   enough tissue types that forcing a shared dispersion trend across them
   would be a worse fit than modeling each separately.
-- **Gene filtering:** genes with zero counts across *all* samples within a
+**Gene filtering:** genes with zero counts across *all* samples within a
   given tissue's own 6-sample subset are dropped before fitting (drops
   ~7,900–8,500 of 27,946 genes per tissue). This is a per-tissue filter,
   not a global one — a gene expressed in one tissue but silent in another is
   only dropped from the tissue where it's actually silent.
-- **Normalization:** DESeq2 median-of-ratios (size factors) for the DE test
+**Normalization:** DESeq2 median-of-ratios (size factors) for the DE test
   itself; VST (variance-stabilizing transformation, `blind = TRUE`) is used
   separately, only for visualization (PCA, sample-distance heatmap) — never
   for the statistical test.
-- **Test:** Wald test via `DESeq()`, contrast = CoV2 vs. mock.
-- **Fold-change shrinkage:** `lfcShrink(..., type = "normal")`.
-- **Significance cutoff:** `padj < 0.05` and `|log2FoldChange| > 1.5`
+**Test:** Wald test via `DESeq()`, contrast = CoV2 vs. mock.
+**Fold-change shrinkage:** `lfcShrink(..., type = "normal")`.
+**Significance cutoff:** `padj < 0.05` and `|log2FoldChange| > 1.5`
   (CLI-configurable, see below).
 
 ### Enrichment — GSEA (`src/gsea.R`)
 
-- Uses **GSEA**, not over-representation analysis (ORA). GSEA ranks *every*
+GSEA was performed to identify enriched functional pathways in.
+Uses **GSEA**, not over-representation analysis (ORA). GSEA ranks *every*
   gene tested in a tissue by `log2FoldChange` and asks whether a gene set is
   enriched toward the top (`NES > 0`, "Upregulated") or bottom (`NES < 0`,
   "Downregulated") of that ranking — no significance cutoff or separate
@@ -62,15 +63,15 @@ Cellular Component / Molecular Function, and KEGG pathways).
   with only 1 significant "down" gene each — too few to test — while GSEA,
   using the full ranked list, still recovered hundreds of suppressed terms
   for both.
-- **Gene sets:** GO (BP/CC/MF) via `org.Hs.eg.db`; KEGG pathways via live
+**Gene sets:** GO (BP/CC/MF) via `org.Hs.eg.db`; KEGG pathways via live
   query (see [Known caveats](#known-caveats)).
-- **Redundant GO term removal:** `simplify()` (GOSemSim, Wang semantic
+**Redundant GO term removal:** `simplify()` (GOSemSim, Wang semantic
   similarity, cutoff = 0.7 — clusterProfiler's own default) collapses
   near-duplicate terms (e.g. "DNA replication" / "DNA-templated DNA
   replication" / "chromosome segregation" describing the same underlying
   process) down to one representative term per cluster, keeping the most
   significant.
-- **Reproducibility:** `set.seed(42)` before all `gseGO()`/`gseKEGG()` calls
+**Reproducibility:** `set.seed(42)` before all `gseGO()`/`gseKEGG()` calls
   — these use permutation-based p-values (`fgsea`) which are otherwise
   non-deterministic between runs.
 
