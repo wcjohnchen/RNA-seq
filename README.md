@@ -196,19 +196,12 @@ RNA-seq/
 
 Per tissue, in `results/<tissue>/`:
 
-- **`de_tables/`** — `<tissue>_all_genes_CoV2_vs_mock.tsv` (every tested
-  gene), `<tissue>_significant_CoV2_vs_mock.tsv` (filtered to the cutoff
-  above), `<tissue>_normalized_counts.tsv` (DESeq2-normalized counts)
-- **`plots/`** — `pca.png`, `sample_distance_heatmap.png`, `volcano.png`,
-  `ma_plot.png`, `top_de_genes_heatmap.png`
+- **`de_tables/`** — `<tissue>_all_genes_CoV2_vs_mock.tsv` (all genes), `<tissue>_significant_CoV2_vs_mock.tsv` (significant genes), `<tissue>_normalized_counts.tsv` (DESeq2-normalized counts)
+- **`plots/`** — `pca.png`, `sample_distance_heatmap.png`, `volcano.png`, `ma_plot.png`, `top_de_genes_heatmap.png`
 - **`qc/qc_summary.txt`** — filtering stats, size factors, DE gene count
-- **`gsea/`** — `<tissue>_GSEA_GO_{BP,CC,MF}.tsv` /
-  `<tissue>_GSEA_KEGG.tsv` result tables, plus a matching `_dotplot.png`
-  for each category
+- **`gsea/`** — `<tissue>_GSEA_GO_{BP,CC,MF}.tsv`, `<tissue>_GSEA_KEGG.tsv` result tables, plus a corresponding `_dotplot.png` for each category
 
-`report.html` bundles every plot above into one self-contained,
-navigable page (sidebar per tissue/section, click-to-enlarge, stat-tile
-overview) — open it directly in a browser, no server needed.
+`report.html` — interactive summary report containing QC, differential expression, and enrichment analysis plots across tissues.
 
 ## Notes
 
