@@ -8,18 +8,17 @@ Cellular Component / Molecular Function, and KEGG pathways).
 This is a personal reanalysis for learning/portfolio purposes, independent of
 the original authors. See [Citation](#citation--data-provenance) below.
 
-📊 **[RNA-seq report](https://claude.ai/code/artifact/821e1224-4e65-40cc-b8d3-4f124b78354c)**
+📊 **[RNA-seq Analysis Report](https://claude.ai/code/artifact/821e1224-4e65-40cc-b8d3-4f124b78354c)**
 
 ## Contents
 
 - [Data](#data)
 - [Methods](#methods)
-- [Results summary](#results-summary)
 - [Setup](#setup)
-- [Running the pipeline](#running-the-pipeline)
-- [Directory structure](#directory-structure)
-- [Output files](#output-files)
-- [Known caveats](#known-caveats)
+- [Analysis Workflow](#running-the-pipeline)
+- [Directory Structure](#directory-structure)
+- [Output Files](#output-files)
+- [Notes](#known-caveats)
 - [References](#references)
 
 ---
@@ -27,7 +26,7 @@ the original authors. See [Citation](#citation--data-provenance) below.
 
 - **Source:** GEO accession [GSE164073](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164073)
 - **File:** `data/GSE164073_Eye_count_matrix.csv` — count matrix, 27,946 genes × 18 samples
-- **Design:** 3 tissues (cornea, limbus, sclera) × 2 conditions (mock, SARS-CoV-2-infected) × 3 replicates = 18 samples.
+- **Design:** 3 tissues (cornea, limbus, sclera) × 2 conditions (mock, SARS-CoV-2-infected) × 3 replicates
 
 
 ## Methods
@@ -76,9 +75,8 @@ the original authors. See [Citation](#citation--data-provenance) below.
   — these use permutation-based p-values (`fgsea`) which are otherwise
   non-deterministic between runs.
 
-## Results summary
-Significant genes per tissue (padj < 0.05, |log2FC| > 1.5), CoV2 vs. mock:
-GSEA enriched terms per tissue/category (after `simplify()` for GO):
+### Data Analysis
+- Significant genes per tissue (padj < 0.05, |log2FC| > 1.5), CoV2 vs. mock.
 
 
 ## Setup
@@ -110,7 +108,7 @@ Key package versions:
 (Full list: all 145 entries in `renv.lock`, which also includes every dependency of the above.)
 
 
-## Running the pipeline
+## Analysis Workflow
 
 After [Setup](#setup) (`renv::restore()` — always required, either way),
 pick one of two ways to actually run the scripts. Both call the exact same
@@ -221,7 +219,7 @@ have reproduced exactly across every run so far; GO MF has differed by
 exactly one term in isolated cases. This is a `fgsea`/`clusterProfiler`
 limitation, not something the pipeline or Snakemake wrapper introduces.
 
-## Directory structure
+## Directory Structure
 
 ```
 RNA-seq/
@@ -262,7 +260,7 @@ Per tissue, in `results/<tissue>/`:
 navigable page (sidebar per tissue/section, click-to-enlarge, stat-tile
 overview) — open it directly in a browser, no server needed.
 
-## Known caveats
+## Notes
 
 - **KEGG requires live internet access.** `gseKEGG()` queries KEGG's REST
   API on every run rather than using a bundled offline copy — Bioconductor's
