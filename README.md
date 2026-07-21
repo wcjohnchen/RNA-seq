@@ -171,7 +171,7 @@ snakemake --cores 3 --config rscript=/full/path/to/Rscript
 ```
 RNA-seq/
 ├── data/
-│   └── GSE164073_Eye_count_matrix.csv   # input count matrix
+│   └── GSE164073_Eye_count_matrix.csv   # input file, count matrix
 ├── src/
 │   ├── deseq2.R                         # differential expression analysis
 │   └── gsea.R                           # GSEA enrichment analysis
@@ -243,13 +243,3 @@ overview) — open it directly in a browser, no server needed.
 
 Raw data: GEO [GSE164073](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164073).
 
-All analysis in this repository (DESeq2 pipeline, GSEA, plots, this
-README) is an independent reanalysis and is **not** the original authors'
-code or figures. The original study's own enrichment analysis used Enrichr
-with a top-100-differentially-expressed-gene list; this repository instead
-uses DESeq2 with an explicit significance cutoff for DE calling and GSEA
-(full ranked list, no cutoff) for enrichment — a different methodology, so
-exact term-level results are not expected to match the original paper
-one-to-one, though the broad biological conclusion (NF-κB-mediated
-chemokine/inflammatory response, interferon-stimulated genes) does
-reproduce independently.
