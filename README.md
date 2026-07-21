@@ -1,4 +1,4 @@
-# SARS-CoV-2 Ocular Tissue Response — RNA-seq Reanalysis
+# RNA-seq Analysis: Differential Expression and Functional Enrichment of a SARS-CoV-2 Infection Dataset
 
 Independent reanalysis of a public RNA-seq dataset examining the transcriptional
 response of human ocular tissue to SARS-CoV-2 infection. Differential expression
@@ -108,7 +108,6 @@ Key package versions:
 | gtable | 0.3.6 | CRAN |
 
 (Full list: all 145 entries in `renv.lock`, which also includes every dependency of the above.)
-
 
 
 ## Running the pipeline
