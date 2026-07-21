@@ -1,4 +1,4 @@
-# RNA-seq Analysis: Differential Expression and Functional Enrichment of a SARS-CoV-2 Infection Dataset
+# RNA-seq Reanalysis of a SARS-CoV-2 Infection Dataset: Differential Expression and Functional Enrichment
 
 Independent reanalysis of a public RNA-seq dataset examining the transcriptional
 response of human ocular tissue to SARS-CoV-2 infection. Differential expression
