@@ -8,7 +8,7 @@ Cellular Component / Molecular Function, and KEGG pathways).
 This is a personal reanalysis for learning/portfolio purposes, independent of
 the original authors. See [Citation](#citation--data-provenance) below.
 
-📊 **[RNA-seq report](https://claude.ai/code/artifact/821e1224-4e65-40cc-b8d3-4f124b78354c)** — every plot below, in one self-contained page with navigation and click-to-enlarge.
+📊 **[RNA-seq report](https://claude.ai/code/artifact/821e1224-4e65-40cc-b8d3-4f124b78354c)**
 
 ## Contents
 
@@ -20,50 +20,15 @@ the original authors. See [Citation](#citation--data-provenance) below.
 - [Directory structure](#directory-structure)
 - [Output files](#output-files)
 - [Known caveats](#known-caveats)
-- [Citation / data provenance](#citation--data-provenance)
+- [References](#references)
 
 ---
-
-## Setup
-
-Dependencies are pinned in `renv.lock` (145 packages: R 4.5.3, Bioconductor 3.22).  In the project root, open R:
-
-```r
-install.packages("renv")   # if not already installed
-renv::restore()
-```
-
-renv::restore()` recreates the project's package environment using the versions recorded in `renv.lock` without modifying global R package library.
-
-Key package versions:
-
-| Package | Version | Source |
-|---|---|---|
-| DESeq2 | 1.50.2 | Bioconductor |
-| clusterProfiler | 4.18.4 | Bioconductor |
-| org.Hs.eg.db | 3.22.0 | Bioconductor |
-| enrichplot | 1.30.4 | Bioconductor |
-| GOSemSim | 2.36.0 | Bioconductor |
-| EnhancedVolcano | 1.28.2 | Bioconductor |
-| pheatmap | 1.0.13 | CRAN |
-| ggplot2 | 4.0.3 | CRAN |
-| RColorBrewer | 1.1-3 | CRAN |
-| gtable | 0.3.6 | CRAN |
-
-(Full list: all 145 entries in `renv.lock`, which also includes every dependency of the above.)
-
-
 ## Data
 
 - **Source:** GEO accession [GSE164073](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164073)
-- **File:** `data/GSE164073_Eye_count_matrix.csv` — raw gene-level count
-  matrix, 27,946 genes × 18 samples
-- **Design:** 3 tissues (cornea, limbus, sclera) × 2 conditions (mock,
-  SARS-CoV-2-infected) × 3 replicates = 18 samples. Sample columns are named
-  `MW<n>_<tissue>_<condition>_<replicate>`, e.g. `MW1_cornea_mock_1`.
+- **File:** `data/GSE164073_Eye_count_matrix.csv` — count matrix, 27,946 genes × 18 samples
+- **Design:** 3 tissues (cornea, limbus, sclera) × 2 conditions (mock, SARS-CoV-2-infected) × 3 replicates = 18 samples.
 
-If the CSV isn't present in this directory, download it from the GEO
-accession above (Supplementary file) and place it in `data/`.
 
 ## Methods
 
@@ -114,6 +79,35 @@ accession above (Supplementary file) and place it in `data/`.
 ## Results summary
 Significant genes per tissue (padj < 0.05, |log2FC| > 1.5), CoV2 vs. mock:
 GSEA enriched terms per tissue/category (after `simplify()` for GO):
+
+
+## Setup
+
+Dependencies are pinned in `renv.lock` (145 packages: R 4.5.3, Bioconductor 3.22).  In the project root, open R:
+
+```r
+install.packages("renv")   # if not already installed
+renv::restore()
+```
+
+renv::restore()` recreates the project's package environment using the versions recorded in `renv.lock` without modifying global R package library.
+
+Key package versions:
+
+| Package | Version | Source |
+|---|---|---|
+| DESeq2 | 1.50.2 | Bioconductor |
+| clusterProfiler | 4.18.4 | Bioconductor |
+| org.Hs.eg.db | 3.22.0 | Bioconductor |
+| enrichplot | 1.30.4 | Bioconductor |
+| GOSemSim | 2.36.0 | Bioconductor |
+| EnhancedVolcano | 1.28.2 | Bioconductor |
+| pheatmap | 1.0.13 | CRAN |
+| ggplot2 | 4.0.3 | CRAN |
+| RColorBrewer | 1.1-3 | CRAN |
+| gtable | 0.3.6 | CRAN |
+
+(Full list: all 145 entries in `renv.lock`, which also includes every dependency of the above.)
 
 
 
@@ -292,9 +286,7 @@ overview) — open it directly in a browser, no server needed.
 - **`deseq2.R` must be run before `gsea.R`** — the latter reads
   the former's `de_tables/*.tsv` output directly.
 
-## Citation / data provenance
-
-Original data and study:
+## References
 
 > Eriksen AZ, Møller R, Makovoz B, Uhl SA, tenOever BR, Blenkinsop TA.
 > **SARS-CoV-2 infects human adult donor eyes and hESC-derived ocular
