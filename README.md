@@ -111,35 +111,31 @@ Key package versions:
 
 ## Running the Analysis Workflow
 
-After [Setup](#setup) (`renv::restore()` — always required, either way),
-pick one of two ways to actually run the scripts. Both call the exact same
-`deseq2.R`/`gsea.R` underneath and produce identical results — Snakemake is
-purely a convenience layer for automatic run-ordering and only-rerunning
-what changed, not a different computation path.
+After completing setup, the analysis workflow can be executed in two ways:
 
 - **Manual** — run the two scripts directly. No extra install needed.
 - **Snakemake** — install Snakemake separately, then let it handle
   run-order and incremental re-runs automatically.
 
-### Manual
+### Manual Execution
 
-Run in this order — `gsea.R` reads `deseq2.R`'s output tables.
+Run `deseq2.R`, followed by `gsea.R`.
 
 ```bash
-cd RNA-seq/     # must run from the project root (relative paths)
+cd RNA-seq/ # run from the project root
 
 Rscript src/deseq2.R
 Rscript src/gsea.R
 ```
 
-Both scripts accept `--key=value` CLI flags; any flag left unset keeps its
-default (shown below).
+Both scripts accept `--key=value` CLI flags.  Any flag left unset keeps its default value:
+
 
 **`deseq2.R`:**
 
 ```bash
-Rscript src/deseq2.R \
-  --counts_file=data/GSE164073_Eye_count_matrix.csv \
+Rscript scripts/deseq2.R \
+  --counts_file=GSE164073_Eye_count_matrix.csv \
   --padj_cutoff=0.05 \
   --lfc_cutoff=1.5 \
   --min_count_sum=0 \
@@ -149,19 +145,32 @@ Rscript src/deseq2.R \
 **`gsea.R`:**
 
 ```bash
-Rscript src/gsea.R \
+Rscript scripts/gsea.R \
   --tissues=cornea,limbus,sclera \
   --use_simplify=TRUE \
   --simplify_cutoff=0.7
 ```
 
-Example — loosen the fold-change cutoff and run only one tissue:
+Exampl
+  --counts_file=data/GSE164073_Eye_count_matrix.csv \
+  --padj_cutoff=0.05 \
+  --lfc_cutoff=1.5 \
+  --min_count_sum=0 \
+  --tissues=cornea,limbus,sclera
+```
+
+
+```bash
+Rscript srce — loosen the fold-change cutoff and run only one tissue:
 
 ```bash
 Rscript src/deseq2.R --lfc_cutoff=1 --tissues=cornea
 ```
 
 ### Snakemake
+
+- **Snakemake** — install Snakemake separately, then let it handle
+  run-order and incremental re-runs automatically.
 
 A `Snakefile` at the project root wraps `deseq2.R` and `gsea.R` **unmodified**
 — it calls them through the `--tissues=<tissue>` flag they already support,
