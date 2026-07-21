@@ -6,8 +6,6 @@ Differential expression
 via **DESeq2**, functional enrichment via **GSEA** (GO Biological Process /
 Cellular Component / Molecular Function, and KEGG pathways).
 
-This is a personal reanalysis for learning/portfolio purposes, independent of
-the original authors. See [Citation](#citation--data-provenance) below.
 
 📊 **[RNA-seq Analysis Report](https://claude.ai/code/artifact/821e1224-4e65-40cc-b8d3-4f124b78354c)**
 
@@ -205,28 +203,10 @@ Per tissue, in `results/<tissue>/`:
 
 ## Notes
 
-- **KEGG requires live internet access.** `gseKEGG()` queries KEGG's REST
-  API on every run rather than using a bundled offline copy — Bioconductor's
-  old offline `KEGG.db` package was deprecated after KEGG restricted bulk
-  redistribution of their database around 2011; free access remains
-  available via their API for this kind of per-run academic use, just not
-  as a redistributable static file. If the machine running this has no
-  internet access, GO results still complete normally (they use the local
-  `org.Hs.eg.db` package), but KEGG results for that run will be empty
-  (the `gseKEGG()` call is wrapped in `tryCatch()`, so this doesn't crash
-  the script). Because of this, exact KEGG term counts aren't pinned the
-  way GO/DESeq2 results are — they reflect KEGG's database as of whenever
-  the script was last run, not a fixed snapshot.
-- **GSEA term counts can still differ from the numbers in this README** if
-  re-run without `renv::restore()` first (i.e. on different package
-  versions than pinned) — `fgsea`'s permutation test is seeded (`42`), so
-  results are reproducible *given identical package versions*, but the
-  seed doesn't guarantee identical output across different `clusterProfiler`
-  or `fgsea` releases.
-- **`deseq2.R` must be run before `gsea.R`** — the latter reads
-  the former's `de_tables/*.tsv` output directly.
 
 ## References
+
+Eriksen AZ, Møller R, Makovoz B, Uhl SA, tenOever BR, Blenkinsop TA. SARS-CoV-2 infects human adult donor eyes and hESC-derived ocular epithelium. Cell Stem Cell. 2021 Jul 1;28(7):1205-1220.e7. doi: 10.1016/j.stem.2021.04.028. Epub 2021 May 17. PMID: 34022129; PMCID: PMC8126605. doi: 10.1016/j.stem.2021.04.028.
 
 > Eriksen AZ, Møller R, Makovoz B, Uhl SA, tenOever BR, Blenkinsop TA.
 > **SARS-CoV-2 infects human adult donor eyes and hESC-derived ocular
