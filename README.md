@@ -1,7 +1,8 @@
 # RNA-seq Reanalysis of a SARS-CoV-2 Infection Dataset: Differential Expression and Functional Enrichment
 
-Independent reanalysis of a public RNA-seq dataset examining the transcriptional
-response of human ocular tissue to SARS-CoV-2 infection. Differential expression
+This project demonstrates a reproducible RNA-seq analysis workflow using a publicly available SARS-CoV-2 infection dataset.
+
+Differential expression
 via **DESeq2**, functional enrichment via **GSEA** (GO Biological Process /
 Cellular Component / Molecular Function, and KEGG pathways).
 
