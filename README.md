@@ -23,9 +23,9 @@ Cellular Component / Molecular Function, and KEGG pathways).
 
 ## Data
 
-**Source:** GEO accession [GSE164073](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164073)
-**File:** `data/GSE164073_Eye_count_matrix.csv` — count matrix, 27,946 genes × 18 samples
-**Design:** 3 tissues (cornea, limbus, sclera) × 2 conditions (mock, SARS-CoV-2-infected) × 3 replicates
+**Source:** GEO accession [GSE164073](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164073) <br>
+**File:** `data/GSE164073_Eye_count_matrix.csv` — count matrix, 27,946 genes × 18 samples <br>
+**Design:** 3 tissues (cornea, limbus, sclera) × 2 conditions (mock, SARS-CoV-2-infected) × 3 replicates <br>
 
 
 ## Computational Methods
@@ -51,7 +51,7 @@ Cellular Component / Molecular Function, and KEGG pathways).
 **Significance cutoff:** `padj < 0.05` and `|log2FoldChange| > 1.5`
   (CLI-configurable, see below).
 
-### Enrichment — GSEA (`src/gsea.R`)
+### GSEA Enrichment (`src/gsea.R`)
 
 GSEA was performed to identify enriched functional pathways in.
 Uses **GSEA**, not over-representation analysis (ORA). GSEA ranks *every*
