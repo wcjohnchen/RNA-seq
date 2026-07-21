@@ -110,6 +110,7 @@ Key package versions:
 
 After completing setup using the R envirnoment specified in `renv.lock`, the analysis workflow can be executed in two ways:
 
+
 ### A. Manual Execution
 
 Run `deseq2.R` first, followed by `gsea.R`.
@@ -189,7 +190,6 @@ RNA-seq/
 ```
 
 
-
 ## Output files
 
 Per tissue, in `results/<tissue>/`:
@@ -206,13 +206,5 @@ Per tissue, in `results/<tissue>/`:
 
 ## References
 
-Eriksen AZ, Møller R, Makovoz B, Uhl SA, tenOever BR, Blenkinsop TA. SARS-CoV-2 infects human adult donor eyes and hESC-derived ocular epithelium. Cell Stem Cell. 2021 Jul 1;28(7):1205-1220.e7. doi: 10.1016/j.stem.2021.04.028. Epub 2021 May 17. PMID: 34022129; PMCID: PMC8126605. doi: 10.1016/j.stem.2021.04.028.
-
-> Eriksen AZ, Møller R, Makovoz B, Uhl SA, tenOever BR, Blenkinsop TA.
-> **SARS-CoV-2 infects human adult donor eyes and hESC-derived ocular
-> epithelium.** *Cell Stem Cell.* 2021 Jul 1;28(7):1205-1220.e7.
-> doi: [10.1016/j.stem.2021.04.028](https://doi.org/10.1016/j.stem.2021.04.028).
-> PMID: [34022129](https://pubmed.ncbi.nlm.nih.gov/34022129/).
-
-Raw data: GEO [GSE164073](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164073).
+Eriksen AZ, Møller R, Makovoz B, Uhl SA, tenOever BR, Blenkinsop TA. SARS-CoV-2 infects human adult donor eyes and hESC-derived ocular epithelium. Cell Stem Cell. 2021 Jul 1;28(7):1205-1220.e7. doi: 10.1016/j.stem.2021.04.028. Epub 2021 May 17. PMID: 34022129; PMCID: PMC8126605.
 
