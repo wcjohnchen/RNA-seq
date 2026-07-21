@@ -80,7 +80,7 @@ the original authors. See [Citation](#citation--data-provenance) below.
 - Significant genes per tissue (padj < 0.05, |log2FC| > 1.5), CoV2 vs. mock.
 
 
-## Enviroment Setup
+## Environment Setup
 
 Dependencies are pinned in `renv.lock` (145 packages: R 4.5.3, Bioconductor 3.22).  In the project root, open R:
 
@@ -111,15 +111,11 @@ Key package versions:
 
 ## Running the Analysis Workflow
 
-After completing setup, the analysis workflow can be executed in two ways:
-
-- **Manual** — run the two scripts directly. No extra install needed.
-- **Snakemake** — install Snakemake separately, then let it handle
-  run-order and incremental re-runs automatically.
+After completing setup using the R envirnoment specified in `renv.lock`, the analysis workflow can be executed in two ways:
 
 ### Manual Execution
 
-Run `deseq2.R`, followed by `gsea.R`.
+Run `deseq2.R` first, followed by `gsea.R`.
 
 ```bash
 cd RNA-seq/ # run from the project root
@@ -151,21 +147,6 @@ Rscript scripts/gsea.R \
   --simplify_cutoff=0.7
 ```
 
-Exampl
-  --counts_file=data/GSE164073_Eye_count_matrix.csv \
-  --padj_cutoff=0.05 \
-  --lfc_cutoff=1.5 \
-  --min_count_sum=0 \
-  --tissues=cornea,limbus,sclera
-```
-
-
-```bash
-Rscript srce — loosen the fold-change cutoff and run only one tissue:
-
-```bash
-Rscript src/deseq2.R --lfc_cutoff=1 --tissues=cornea
-```
 
 ### Snakemake
 
