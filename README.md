@@ -30,28 +30,23 @@ Cellular Component / Molecular Function, and KEGG pathways).
 
 ## Computational Methods
 
-### Differential expression (`src/deseq2.R`)
+### Principal Component Analysis
 
-**Each tissue is modeled independently** — its own size factors, dispersion
-  trend, and contrast — rather than pooling all 18 samples into one
-  `~tissue + condition` design. Cornea, limbus, and sclera are different
-  enough tissue types that forcing a shared dispersion trend across them
-  would be a worse fit than modeling each separately.
-**Gene filtering:** genes with zero counts across *all* samples within a
-  given tissue's own 6-sample subset are dropped before fitting (drops
-  ~7,900–8,500 of 27,946 genes per tissue). This is a per-tissue filter,
-  not a global one — a gene expressed in one tissue but silent in another is
-  only dropped from the tissue where it's actually silent.
+
+
+### Differential expression
+
+Differential expression (DE) analysis was performed between SARS-CoV-2-infected and mock samples in each ocular tissue region (cornea, limbus, and sclera) using DESeq2 (R/Bioconductor package). 
+Genes with zero counts across all samples were removed prior to analysis. DESeq2 estimates size factors using the median-of-ratios method for normalization and models read counts 
+using a negative binomial distribution to account for biological variability and overdispersion.  Statistical significance was assessed using the Wald test, with p-values adjusted 
+using the Benjamini–Hochberg false discovery rate (FDR) correction.. Genes with adjusted p-value (padj) < 0.05 and |log2FoldChange| > 1.5 were considered significantly differentially expressed.
+
 **Normalization:** DESeq2 median-of-ratios (size factors) for the DE test
   itself; VST (variance-stabilizing transformation, `blind = TRUE`) is used
   separately, only for visualization (PCA, sample-distance heatmap) — never
   for the statistical test.
-**Test:** Wald test via `DESeq()`, contrast = CoV2 vs. mock.
-**Fold-change shrinkage:** `lfcShrink(..., type = "normal")`.
-**Significance cutoff:** `padj < 0.05` and `|log2FoldChange| > 1.5`
-  (CLI-configurable, see below).
 
-### GSEA Enrichment (`src/gsea.R`)
+### GSEA Enrichment
 
 GSEA was performed to identify enriched functional pathways in.
 Uses **GSEA**, not over-representation analysis (ORA). GSEA ranks *every*
