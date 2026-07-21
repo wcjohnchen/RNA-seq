@@ -126,7 +126,7 @@ Rscript src/gsea.R
 Both scripts accept `--key=value` CLI flags.  Any flag left unset keeps its default value:
 
 
-**`deseq2.R`:**
+`deseq2.R`:
 
 ```bash
 Rscript scripts/deseq2.R \
@@ -137,7 +137,7 @@ Rscript scripts/deseq2.R \
   --tissues=cornea,limbus,sclera
 ```
 
-**`gsea.R`:**
+`gsea.R`:
 
 ```bash
 Rscript scripts/gsea.R \
