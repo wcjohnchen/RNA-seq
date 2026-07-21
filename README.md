@@ -112,7 +112,7 @@ Key package versions:
 
 After completing setup using the R envirnoment specified in `renv.lock`, the analysis workflow can be executed in two ways:
 
-### Manual Execution
+### A. Manual Execution
 
 Run `deseq2.R` first, followed by `gsea.R`.
 
@@ -147,7 +147,7 @@ Rscript scripts/gsea.R \
 ```
 
 
-### Snakemake
+### B. Snakemake
 
 Snakemake requires a separate environment from the R project environment managed by `renv`.  To create the environment:
 
