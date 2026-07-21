@@ -88,7 +88,7 @@ install.packages("renv")   # if not already installed
 renv::restore()
 ```
 
-renv::restore()` recreates the project's package environment using the versions recorded in `renv.lock` without modifying global R package library.
+renv::restore() recreates the project's package environment using the versions recorded in `renv.lock` without modifying global R package library.
 
 Key package versions:
 
