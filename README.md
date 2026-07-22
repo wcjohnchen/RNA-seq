@@ -1,8 +1,8 @@
 # RNA-seq Reanalysis of a SARS-CoV-2 Infection Dataset: Differential Expression and Functional Enrichment
 
 This project demonstrates a reproducible RNA-seq analysis workflow using a publicly available SARS-CoV-2 infection dataset. The workflow integrates differential expression (DE) analysis 
-to identify significantly altered genes and Gene Set Enrichment Analysis (GSEA) to characterize enriched biological pathways. It provides a structured framework for analyzing RNA-seq count data, 
-conducting statistical analysis, and identifying gene expression patterns and molecular responses.
+and Gene Set Enrichment Analysis (GSEA) to identify significantly altered genes, enriched ontology terms, and biological pathways. It provides a structured framework for 
+characterizing gene expression patterns and molecular responses.
 
 📊 **[RNA-seq Analysis Report](https://claude.ai/code/artifact/821e1224-4e65-40cc-b8d3-4f124b78354c)**
 
