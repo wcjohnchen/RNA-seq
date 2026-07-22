@@ -159,8 +159,10 @@ analyze_tissue <- function(tissue_name) {
                        annotation_col = meta_sub["condition"],
                        color = colorRampPalette(rev(brewer.pal(9, "Blues")))(255),
                        border_color = NA,
-                       cluster_rows = FALSE,
-                       cluster_cols = FALSE,
+                       clustering_distance_rows = sample_dists,
+                       clustering_distance_cols = sample_dists,
+                       cluster_rows = TRUE,
+                       cluster_cols = TRUE,
                        silent = TRUE)
   png(file.path(out_plot, "sample_distance_heatmap.png"), width = 6, height = 5, units = "in", res = 150)
   draw_pheatmap_matrix_border(ph_dist)
