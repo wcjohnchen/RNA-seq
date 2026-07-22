@@ -41,7 +41,8 @@ using the Benjamini–Hochberg (BH) false discovery rate (FDR) correction. Genes
 
 ### MA plot
 
-MA plots were generated to visualize the relationship between mean normalized expression and log2 fold change across all genes in the three regions.
+MA plots were generated to visualize differential expression between SARS-CoV-2-infected and mock samples by plotting log2 fold change (M values) and mean normalized expression (A values)
+across all genes in the three regions.
 
 ### Heatmap
 

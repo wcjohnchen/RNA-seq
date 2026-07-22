@@ -56,7 +56,7 @@ custom_ma_plot <- function(res_df, alpha, col_sig = "navyblue",
   plot(log2_mean, lfc_vals,
        pch = 1, cex = 0.45,
        col = ifelse(is_sig, col_sig, col_nonsig),
-       xlab = "log2(mean of normalized counts)", ylab = "log fold change",
+       xlab = "log2(mean of normalized counts)", ylab = "log2 fold change",
        main = main)
   abline(h = 0, lwd = 1, col = col_line)
 }
