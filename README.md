@@ -34,7 +34,7 @@ and evaluate clustering patterns between SARS-CoV-2-infected and mock samples.
 
 ### Differential expression
 
-Differential expression (DE) analysis was performed between SARS-CoV-2-infected and mock samples in each ocular tissue region (cornea, limbus, and sclera) using DESeq2. 
+DE analysis was performed between SARS-CoV-2-infected and mock samples in each ocular tissue region (cornea, limbus, and sclera) using DESeq2. 
 Genes with zero counts across all samples were removed prior to analysis. DESeq2 estimates size factors using the median-of-ratios method for normalization and models read counts 
 using a negative binomial distribution to account for biological variability and overdispersion.  Statistical significance was assessed using the Wald test, with p-values adjusted 
 using the Benjamini–Hochberg (BH) false discovery rate (FDR) correction. Genes with adjusted p-value (padj) < 0.05 and |log2FoldChange| > 1.5 were considered significantly differentially expressed.
@@ -47,7 +47,7 @@ The DE gene heatmap shows VST expression of the significant differentially expre
 
 ### GSEA Enrichment
 
-GSEA (Gene Set Enrichment Analysis) was performed to identify enriched functional pathways across the three regions. Genes were ranked by log2 fold-change, and pathway enrichment was evaluated using 
+GSEA was performed to identify enriched functional pathways across the three regions. Genes were ranked by log2 fold-change, and pathway enrichment was evaluated using 
 normalized enrichment scores (NES). Positive NES values (NES > 0) indicate enrichment of upregulated genes at the top of the ranked list, whereas negative NES values (NES < 0) 
 indicate enrichment of downregulated genes at the bottom of the ranked list. Gene sets included Gene Ontology (GO) annotations, including Biological Process (BP), Cellular Component (CC), 
 and Molecular Function (MF), from `org.Hs.eg.db`, as well as KEGG (Kyoto Encyclopedia of Genes and Genomes) pathway annotations obtained through live database queries. Statistical significance was assessed using BH-FDR-adjusted p-values.
