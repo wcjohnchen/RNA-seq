@@ -205,6 +205,7 @@ analyze_tissue <- function(tissue_name) {
                         annotation_col = meta_sub["condition"],
                         show_rownames = length(top_genes) <= 40,
                         border_color = NA,
+                        clustering_distance_rows = "correlation",
                         cluster_rows = TRUE,
                         cluster_cols = FALSE,
                         silent = TRUE)
