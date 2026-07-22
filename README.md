@@ -46,7 +46,7 @@ across all genes in the three regions.
 
 ### Heatmap
 
-Heatmaps were generated for the three region using `pheatmap` (R package). The sample-distance heatmap shows pairwise Euclidean distances between samples based on VST expression values. The DE gene heatmap shows VST expression of the significant differentially expressed genes.  Genes are hierarchically clustered. 
+Heatmaps were generated for the three region using the `pheatmap` R package. The sample-distance heatmap shows pairwise Euclidean distances between samples based on VST expression values. The DE gene heatmap shows VST expression of the significant differentially expressed genes, with genes hierarchically clustered based on Pearson correlation. 
 
 ### GSEA Enrichment
 
