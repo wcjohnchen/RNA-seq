@@ -53,13 +53,11 @@ custom_ma_plot <- function(res_df, alpha, col_sig = "navyblue",
   is_sig <- !is.na(res_df$padj[keep]) & res_df$padj[keep] < alpha
 
   log2_mean <- log2(mean_vals)
-  ylim <- c(-1, 1) * quantile(abs(lfc_vals[is.finite(lfc_vals)]), probs = 0.99, na.rm = TRUE) * 1.1
-  pch_vals <- ifelse(lfc_vals < ylim[1], 6, ifelse(lfc_vals > ylim[2], 2, 1)) # triangle capped points are used for genes whose log2FC are outside the plotting range.
-  plot(log2_mean, pmax(ylim[1], pmin(ylim[2], lfc_vals)),
-       pch = pch_vals, cex = 0.45,
+  plot(log2_mean, lfc_vals,
+       pch = 1, cex = 0.45,
        col = ifelse(is_sig, col_sig, col_nonsig),
        xlab = "log2(mean of normalized counts)", ylab = "log fold change",
-       ylim = ylim, main = main)
+       main = main)
   abline(h = 0, lwd = 1, col = col_line)
 }
 
