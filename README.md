@@ -42,10 +42,6 @@ Genes with zero counts across all samples were removed prior to analysis. DESeq2
 using a negative binomial distribution to account for biological variability and overdispersion.  Statistical significance was assessed using the Wald test, with p-values adjusted 
 using the Benjamini–Hochberg (BH) false discovery rate (FDR) correction. Genes with adjusted p-value (padj) < 0.05 and |log2FoldChange| > 1.5 were considered significantly differentially expressed.
 
-**Normalization:** DESeq2 median-of-ratios (size factors) for the DE test
-  itself; VST (variance-stabilizing transformation, `blind = TRUE`) is used
-  separately, only for visualization (PCA, sample-distance heatmap) — never
-  for the statistical test.
 
 ### Heatmap
 
