@@ -171,7 +171,6 @@ analyze_tissue <- function(tissue_name) {
                   main = sprintf("%s: MA plot (CoV2 vs mock)", tissue_label))
   dev.off()
 
-  #  -log10(padj) values are capped at 100 to prevent extremely small values from stretching the y-axis.
   y_axis_cap <- 100
   res_df$padj_capped <- pmax(res_df$padj, 10^(-y_axis_cap))
 
