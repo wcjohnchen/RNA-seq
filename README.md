@@ -51,7 +51,7 @@ GSEA was performed to identify enriched functional pathways across the three reg
 normalized enrichment scores (NES). Positive NES values (NES > 0) indicate enrichment of upregulated genes at the top of the ranked list, whereas negative NES values (NES < 0) 
 indicate enrichment of downregulated genes at the bottom of the ranked list. Gene sets included Gene Ontology (GO) annotations, including Biological Process (BP), Cellular Component (CC), 
 and Molecular Function (MF), from `org.Hs.eg.db`, as well as KEGG (Kyoto Encyclopedia of Genes and Genomes) pathway annotations obtained through live database queries. Statistical significance was assessed using BH-FDR-adjusted p-values.
-Redundant GO terms were reduced using `simplify()` from the `clusterProfiler` package with Wang semantic similarity (cutoff = 0.7).  The most significant representative term was retained 
+Redundant GO terms were reduced using `simplify()` from the `clusterProfiler` R package with Wang semantic similarity (cutoff = 0.7).  The most significant representative term was retained 
 from each cluster of highly similar annotations.
 
 
