@@ -183,6 +183,8 @@ Per tissue, in `results/<tissue>/`:
 
 ## Notes
 
+Code was developed with assistance from Claude, an AI coding assistant, based on author-defined specifications, analytical objectives, and methodological decisions. 
+The generated code was iteratively refined, reviewed by the author, and validated by reproducing and comparing results with those reported in the original publication.
 
 ## References
 
