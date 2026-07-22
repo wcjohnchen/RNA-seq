@@ -2,7 +2,7 @@
 
 This project demonstrates a reproducible RNA-seq analysis workflow using a publicly available SARS-CoV-2 infection dataset. The workflow integrates differential expression (DE) analysis 
 to identify significantly altered genes and Gene Set Enrichment Analysis (GSEA) to characterize enriched biological pathways. It provides a structured framework for analyzing RNA-seq count data, 
-conducting statistical analysis, and identifying infection-associated gene expression patterns and molecular responses.
+conducting statistical analysis, and identifying gene expression patterns and molecular responses.
 
 📊 **[RNA-seq Analysis Report](https://claude.ai/code/artifact/821e1224-4e65-40cc-b8d3-4f124b78354c)**
 
@@ -38,6 +38,9 @@ DE analysis was performed between SARS-CoV-2-infected and mock samples in each o
 Genes with zero counts across all samples were removed prior to analysis. DESeq2 estimates size factors using the median-of-ratios method for normalization and models read counts 
 using a negative binomial distribution to account for biological variability and overdispersion.  Statistical significance was assessed using the Wald test, with p-values adjusted 
 using the Benjamini–Hochberg (BH) false discovery rate (FDR) correction. Genes with adjusted p-value (padj) < 0.05 and |log2FoldChange| > 1.5 were considered significantly differentially expressed.
+
+### MA plot
+
 
 
 ### Heatmap
