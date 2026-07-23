@@ -108,8 +108,8 @@ Both scripts accept `--key=value` CLI flags.  Any flag left unset keeps its defa
 `deseq2.R`:
 
 ```bash
-Rscript scripts/deseq2.R \
-  --counts_file=GSE164073_Eye_count_matrix.csv \
+Rscript src/deseq2.R \
+  --counts_file=data/GSE164073_Eye_count_matrix.csv \
   --padj_cutoff=0.05 \
   --lfc_cutoff=1.5 \
   --min_count_sum=0 \
@@ -119,7 +119,7 @@ Rscript scripts/deseq2.R \
 `gsea.R`:
 
 ```bash
-Rscript scripts/gsea.R \
+Rscript src/gsea.R \
   --tissues=cornea,limbus,sclera \
   --use_simplify=TRUE \
   --simplify_cutoff=0.7

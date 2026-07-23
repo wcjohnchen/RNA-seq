@@ -1,7 +1,7 @@
 tissue	category	n_terms	n_up	n_down
 cornea	GO_BP	334	211	123
 cornea	GO_CC	84	33	51
-cornea	GO_MF	100	32	68
+cornea	GO_MF	99	32	67
 cornea	KEGG	95	52	43
 limbus	GO_BP	188	107	81
 limbus	GO_CC	42	13	29

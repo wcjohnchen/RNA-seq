@@ -51,6 +51,24 @@ summary_rows <- list()
 
 sign_labeller <- as_labeller(c(activated = "Upregulated", suppressed = "Downregulated"))
 
+# Writes can transiently fail with "Text file busy" on some shared/network
+# filesystems (seen on this project's VirtualBox shared-folder mount) when a
+# file that already exists from a previous run is reopened for writing --
+# retry with a short backoff rather than aborting the whole run.
+write_table_retry <- function(x, file, ..., max_attempts = 12, delay_sec = 5) {
+  for (attempt in seq_len(max_attempts)) {
+    ok <- tryCatch({ write.table(x, file, ...); TRUE },
+                    error = function(e) {
+                      if (attempt == max_attempts) stop(e)
+                      cat(sprintf("  write to %s failed (attempt %d/%d): %s -- retrying...\n",
+                                  file, attempt, max_attempts, conditionMessage(e)))
+                      Sys.sleep(delay_sec)
+                      FALSE
+                    })
+    if (ok) break
+  }
+}
+
 save_gsea_plot <- function(gse, out_path, title) {
   n_show <- min(15, nrow(as.data.frame(gse)))
   p <- dotplot(gse, showCategory = n_show, split = ".sign", label_format = 55) +
@@ -101,7 +119,7 @@ for (t in tissues) {
       tissue = t, category = sprintf("GO_%s", ont), n_terms = nrow(df), n_up = n_up, n_down = n_down)
 
     if (nrow(df) == 0) next
-    write.table(df, sprintf("%s/%s_GSEA_GO_%s.tsv", out_dir, t, ont), sep = "\t", quote = FALSE, row.names = FALSE)
+    write_table_retry(df, sprintf("%s/%s_GSEA_GO_%s.tsv", out_dir, t, ont), sep = "\t", quote = FALSE, row.names = FALSE)
     save_gsea_plot(gse, sprintf("%s/%s_GSEA_GO_%s_dotplot.png", out_dir, t, ont),
                     sprintf("%s: GSEA GO %s", t_label, ont_names[ont]))
   }
@@ -127,7 +145,7 @@ for (t in tissues) {
 
   if (nrow(dfk) > 0) {
     gsekegg_readable <- tryCatch(setReadable(gsekegg, OrgDb = org.Hs.eg.db, keyType = "ENTREZID"), error = function(e) gsekegg)
-    write.table(as.data.frame(gsekegg_readable), sprintf("%s/%s_GSEA_KEGG.tsv", out_dir, t),
+    write_table_retry(as.data.frame(gsekegg_readable), sprintf("%s/%s_GSEA_KEGG.tsv", out_dir, t),
                 sep = "\t", quote = FALSE, row.names = FALSE)
     save_gsea_plot(gsekegg, sprintf("%s/%s_GSEA_KEGG_dotplot.png", out_dir, t),
                     sprintf("%s: GSEA KEGG pathways", t_label))
@@ -135,7 +153,7 @@ for (t in tissues) {
 }
 
 summary_df <- do.call(rbind, summary_rows)
-write.table(summary_df, "results/gsea_summary.tsv", sep = "\t", quote = FALSE, row.names = FALSE)
+write_table_retry(summary_df, "results/gsea_summary.tsv", sep = "\t", quote = FALSE, row.names = FALSE)
 cat("\n==== GSEA summary ====\n")
 print(summary_df)
 cat("\nDone. Per-tissue outputs in results/<tissue>/gsea/\n")
