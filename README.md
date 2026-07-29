@@ -26,7 +26,7 @@ characterizing gene expression patterns and molecular responses.
 **Design:** 3 tissues (cornea, limbus, sclera) × 2 conditions (mock, SARS-CoV-2-infected) × 3 replicates <br>
 
 
-## Computational Methods
+## 2. Computational Methods
 
 ### Principal Component Analysis
 
@@ -59,7 +59,7 @@ Redundant GO terms were reduced using `simplify()` from the `clusterProfiler` R 
 from each cluster of highly similar annotations.
 
 
-## Environment Setup
+## 3. Environment Setup
 
 Dependencies are pinned in `renv.lock` (145 packages: R 4.5.3, Bioconductor 3.22).  In the project root, open R:
 
@@ -87,7 +87,7 @@ Key package versions:
 (Full list: all 145 entries in `renv.lock`, which also includes every dependency of the above.)
 
 
-## Analysis Workflow
+## 4. Analysis Workflow
 
 ```
 Input Data
@@ -129,7 +129,7 @@ Reproducible HTML Report & GitHub Documentation
 ```
 
 
-## Running the Analysis Workflow
+## 5. Running the Analysis Workflow
 
 After completing setup using the R envirnoment specified in `renv.lock`, the analysis workflow can be executed in two ways:
 
@@ -188,7 +188,7 @@ snakemake --cores 3 --config rscript=/full/path/to/Rscript
 ```
 
 
-## Directory Structure
+## 6. Directory Structure
 
 ```
 RNA-seq/
@@ -213,7 +213,7 @@ RNA-seq/
 ```
 
 
-## Output files
+## 7. Output files
 
 Per tissue, in `results/<tissue>/`:
 
@@ -224,12 +224,12 @@ Per tissue, in `results/<tissue>/`:
 
 `report.html` — interactive summary report containing QC, differential expression, and enrichment analysis plots across tissues.
 
-## Notes
+## 8. Notes
 
 Code was developed with assistance from Claude, an AI coding assistant, based on author-defined specifications, analytical objectives, and methodological decisions. 
 The generated code was iteratively refined, reviewed by the author, and validated by reproducing and comparing results with those reported in the original publication.
 
-## References
+## 9. References
 
 Eriksen AZ, Møller R, Makovoz B, Uhl SA, tenOever BR, Blenkinsop TA. SARS-CoV-2 infects human adult donor eyes and hESC-derived ocular epithelium. Cell Stem Cell. 2021 Jul 1;28(7):1205-1220.e7. doi: 10.1016/j.stem.2021.04.028. Epub 2021 May 17. PMID: 34022129; PMCID: PMC8126605.
 
