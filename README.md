@@ -86,6 +86,48 @@ Key package versions:
 (Full list: all 145 entries in `renv.lock`, which also includes every dependency of the above.)
 
 
+## Workflow
+
+```
+Input Data
+(Public RNA-seq Count Matrix + Metadata)
+        │
+        ▼
+Data Import
+        │
+        ▼
+Quality Control
+(Remove zero-count genes, verify metadata)
+        │
+        ▼
+DESeq2 Analysis
+(Normalization → Differential Expression)
+        │
+        ▼
+Exploratory Analysis
+(PCA, Heatmap, Sample QC)
+        │
+        ▼
+Identify Differentially Expressed Genes
+(padj < 0.05, |log2FC| > 1.5)
+        │
+        ▼
+Functional Enrichment
+(GO, KEGG, GSEA)
+        │
+        ▼
+Visualization
+(Volcano Plot, Heatmap, MA Plot)
+        │
+        ▼
+Biological Interpretation
+        │
+        ▼
+Reproducible HTML Report & GitHub Documentation
+
+```
+
+
 ## Running the Analysis Workflow
 
 After completing setup using the R envirnoment specified in `renv.lock`, the analysis workflow can be executed in two ways:
