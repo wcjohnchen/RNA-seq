@@ -11,7 +11,7 @@ characterizing gene expression patterns and molecular responses.
 - [Data](#data)
 - [Computational Methods](#computational-methods)
 - [Environment Setup](#environment-setup)
-- [Workflow] (#workflow)
+- [Analysis Workflow](#analysis-workflow)
 - [Running the Analysis Workflow](#running-the-analysis-workflow)
 - [Directory Structure](#directory-structure)
 - [Output Files](#output-files)
@@ -87,7 +87,7 @@ Key package versions:
 (Full list: all 145 entries in `renv.lock`, which also includes every dependency of the above.)
 
 
-## Workflow
+## Analysis Workflow
 
 ```
 Input Data
