@@ -8,7 +8,7 @@ characterizing gene expression patterns and molecular responses.
 
 ## Contents
 
-- [Data](#data)
+- [1. Data](#1.-data)
 - [Computational Methods](#computational-methods)
 - [Environment Setup](#environment-setup)
 - [Analysis Workflow](#analysis-workflow)
@@ -19,7 +19,7 @@ characterizing gene expression patterns and molecular responses.
 - [References](#references)
 
 
-## Data
+## 1. Data
 
 **Source:** GEO accession [GSE164073](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE164073) <br>
 **File:** `data/GSE164073_Eye_count_matrix.csv` — count matrix, 27,946 genes × 18 samples <br>
