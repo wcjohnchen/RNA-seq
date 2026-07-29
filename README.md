@@ -36,7 +36,7 @@ and evaluate clustering patterns between SARS-CoV-2-infected and mock samples.
 ### Differential expression
 
 DE analysis was performed between SARS-CoV-2-infected and mock samples in each ocular tissue region (cornea, limbus, and sclera) using DESeq2. 
-Genes with zero counts across all samples were removed prior to analysis. DESeq2 estimates size factors using the median-of-ratios method for normalization and models read counts 
+Genes with zero counts across all samples were removed prior to analysis. No additional low-expression filtering was applied.  DESeq2 estimates size factors using the median-of-ratios method for normalization and models read counts 
 using a negative binomial distribution to account for biological variability and overdispersion.  Statistical significance was assessed using the Wald test, with p-values adjusted 
 using the Benjamini–Hochberg (BH) false discovery rate (FDR) correction. Genes with adjusted p-value (padj) < 0.05 and |log2FoldChange| > 1.5 were considered significantly differentially expressed.
 
@@ -91,41 +91,31 @@ Key package versions:
 
 ```
 Input Data
-(Public RNA-seq Count Matrix + Metadata)
-        │
-        ▼
-Data Import
+(RNA-seq Count Matrix)
         │
         ▼
 Quality Control
-(Remove zero-count genes, verify metadata)
+(Remove zero-count genes)
         │
         ▼
-DESeq2 Analysis
-(Normalization → Differential Expression)
+DESeq2 Normalization
+(Size factor estimation for library size correction)
         │
-        ▼
-Exploratory Analysis
-(PCA, Heatmap, Sample QC)
-        │
-        ▼
-Identify Differentially Expressed Genes
-(padj < 0.05, |log2FC| > 1.5)
-        │
-        ▼
-Functional Enrichment
-(GO, KEGG, GSEA)
-        │
-        ▼
-Visualization
-(Volcano Plot, Heatmap, MA Plot)
-        │
-        ▼
-Biological Interpretation
-        │
-        ▼
-Reproducible HTML Report & GitHub Documentation
-
+        ├──────────────────────────────┐
+        │                              │
+        ▼                              ▼
+VST Transformation              DE Analysis
+        │                       (Dispersion estimation,
+        ▼                        Negative binomial model,
+PCA plot,                        log2FC, adjusted p-value)
+Sample distance heatmap                 │
+                                        │
+                         ┌──────────────┴──────────────┐
+                         │                             │
+                         ▼                             ▼
+                DE Visualization              GSEA Enrichment
+                (Volcano plot, MA plot,       (GO / KEGG gene sets)
+                 heatmap)
 ```
 
 
