@@ -8,15 +8,15 @@ characterizing gene expression patterns and molecular responses.
 
 ## Contents
 
-- [1. Data](#1.-data)
-- [2. Computational Methods](#2.-computational-methods)
-- [3. Environment Setup](#3.-environment-setup)
-- [4. Analysis Workflow](#4.-analysis-workflow)
-- [5. Running the Analysis Workflow](#5.-running-the-analysis-workflow)
-- [6. Directory Structure](#6.-directory-structure)
-- [7. Output Files](#7.-output-files)
-- [8. Notes](#8.-notes)
-- [9. References](#9.-references)
+- [1. Data](#1-data)
+- [2. Computational Methods](#2-computational-methods)
+- [3. Environment Setup](#3-environment-setup)
+- [4. Analysis Workflow](#4-analysis-workflow)
+- [5. Running the Analysis Workflow](#5-running-the-analysis-workflow)
+- [6. Directory Structure](#6-directory-structure)
+- [7. Output Files](#7-output-files)
+- [8. Notes](#8-notes)
+- [9. References](#9-references)
 
 
 ## 1. Data
