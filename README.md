@@ -11,6 +11,7 @@ characterizing gene expression patterns and molecular responses.
 - [Data](#data)
 - [Computational Methods](#computational-methods)
 - [Environment Setup](#environment-setup)
+- [Workflow] (#workflow)
 - [Running the Analysis Workflow](#running-the-analysis-workflow)
 - [Directory Structure](#directory-structure)
 - [Output Files](#output-files)
