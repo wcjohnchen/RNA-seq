@@ -106,16 +106,16 @@ DESeq2 Normalization
         ▼                              ▼
 VST Transformation              DE Analysis
         │                       (Dispersion estimation,
-        ▼                        Negative binomial model,
-PCA plot,                        log2FC, adjusted p-value)
-Sample distance heatmap                 │
+        ▼                        negative binomial model,
+PCA Plot,                        log2FC, adjusted p-value)
+Sample Distance Heatmap                 │
                                         │
                          ┌──────────────┴──────────────┐
                          │                             │
                          ▼                             ▼
                 DE Visualization              GSEA Enrichment
-                (Volcano plot, MA plot,       (GO / KEGG gene sets)
-                 heatmap)
+                (Volcano Plot, MA Plot,       (GO / KEGG gene sets)
+                 Heatmap)
 ```
 
 
