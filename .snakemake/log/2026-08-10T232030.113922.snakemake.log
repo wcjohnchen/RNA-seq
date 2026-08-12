@@ -1,0 +1,67 @@
+Lints for snakefile /home/wcjohnchen2022/shared/claude_code/RNA-seq/Snakefile:
+    * Absolute path "/{t}/" in p and f" in line 79:
+      Do not define absolute paths inside of the workflow, since this renders
+      your workflow irreproducible on other machines. Use path relative to the
+      working directory instead, or make the path configurable via a config
+      file.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/configuration.html#configuration
+    * Path composition with '+' in line 39:
+      This becomes quickly unreadable. Usually, it is better to endure some
+      redundancy against having a more readable workflow. Hence, just repeat
+      common prefixes. If path composition is unavoidable, use pathlib or
+      (python >= 3.6) string formatting with f"...".
+    * Path composition with '+' in line 49:
+      This becomes quickly unreadable. Usually, it is better to endure some
+      redundancy against having a more readable workflow. Hence, just repeat
+      common prefixes. If path composition is unavoidable, use pathlib or
+      (python >= 3.6) string formatting with f"...".
+
+Lints for rule deseq2 (line 28, /home/wcjohnchen2022/shared/claude_code/RNA-seq/Snakefile):
+    * No log directive defined:
+      Without a log directive, all output will be printed to the terminal. In
+      distributed environments, this means that errors are harder to discover.
+      In local environments, output of concurrent jobs will be mixed and become
+      unreadable.
+      Also see:
+      https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files
+    * Specify a conda environment or container for each rule.:
+      This way, the used software for each specific step is documented, and the
+      workflow can be executed on any machine without prerequisites.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#integrated-package-management
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#running-jobs-in-containers
+
+Lints for rule gsea (line 41, /home/wcjohnchen2022/shared/claude_code/RNA-seq/Snakefile):
+    * No log directive defined:
+      Without a log directive, all output will be printed to the terminal. In
+      distributed environments, this means that errors are harder to discover.
+      In local environments, output of concurrent jobs will be mixed and become
+      unreadable.
+      Also see:
+      https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files
+    * Specify a conda environment or container for each rule.:
+      This way, the used software for each specific step is documented, and the
+      workflow can be executed on any machine without prerequisites.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#integrated-package-management
+      https://snakemake.readthedocs.io/en/latest/snakefiles/deployment.html#running-jobs-in-containers
+
+Lints for rule aggregate_summaries (line 51, /home/wcjohnchen2022/shared/claude_code/RNA-seq/Snakefile):
+    * No log directive defined:
+      Without a log directive, all output will be printed to the terminal. In
+      distributed environments, this means that errors are harder to discover.
+      In local environments, output of concurrent jobs will be mixed and become
+      unreadable.
+      Also see:
+      https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#log-files
+    * Migrate long run directives into scripts or notebooks:
+      Long run directives hamper workflow readability. Use the script or
+      notebook directive instead. Note that the script or notebook directive
+      does not involve boilerplate. Similar to run, you will have direct access
+      to params, input, output, and wildcards.Only use the run directive for a
+      handful of lines.
+      Also see:
+      https://snakemake.readthedocs.io/en/latest/snakefiles/rules.html#external-scripts
+      https://snakemake.readthedocs.io/en/latest/snakefiles/rules.html#jupyter-notebook-integration
+
