@@ -212,8 +212,6 @@ Per tissue, in `results/<tissue>/`:
 - **`qc/qc_summary.txt`** — filtering stats, size factors, DE gene count
 - **`gsea/`** — `<tissue>_GSEA_GO_{BP,CC,MF}.tsv`, `<tissue>_GSEA_KEGG.tsv` result tables, plus a corresponding `_dotplot.png` for each category
 
-`report.html` — interactive summary report containing QC, differential expression, and enrichment analysis plots across tissues.
-
 ## 8. Notes
 
 Code was developed with assistance from Claude, an AI coding assistant, based on author-defined specifications, analytical objectives, and methodological decisions. 
