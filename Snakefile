@@ -1,58 +1,31 @@
 # Snakemake workflow for the RNA-seq DE + GSEA pipeline.
 # Wraps src/deseq2.R, src/gsea.R, and src/generate_report.R
+#
+# Uses the same R environment as manual execution (README section 3):
+# Snakemake invokes plain `Rscript`, which auto-activates renv via
+# .Rprofile since every rule runs with cwd = project root -- no separate
+# conda env needed for R packages.
+#
+# onstart below runs `renv::restore()` twice before any rule executes, so
+# a fresh clone's R packages get installed automatically. Twice, not once,
+# because Bioconductor's deep dependency chains (e.g. DESeq2 -> ... ->
+# DelayedArray, enrichplot -> RSQLite) can hit a parallel-install ordering
+# race on the first pass, where a package finishes building just before
+# one of its own dependencies does and fails; the second pass installs
+# only whatever failed, and by then its dependencies already exist.
+# Confirmed live: first pass failed on DESeq2 + enrichplot, second pass
+# installed both cleanly with nothing else to redo (everything already
+# correct was skipped, not reinstalled).
+#
 # Usage:
 #   snakemake -n                 # dry run
 #   snakemake --cores 3          # real run
-#   snakemake --cores 3 --config conda_env=my_env_name
-#   snakemake --config rscript=/full/path/to/Rscript --cores 3
-#
-# Auto-detects the 'rnaseq' conda env (default name, overridable with
-# --config conda_env=...) via whatever `conda` is on PATH, asking it for
-# its own base dir rather than guessing install-dir names -- same approach
-# used in the multiomics project's Snakefile, kept consistent.
-#
-# Unlike that project, this one can't dodge a possibly-broken renv/
-# .Rprofile activation by cd'ing into a subdirectory first: every script
-# here (deseq2.R, gsea.R, generate_report.R) uses plain "results/..."-style
-# paths relative to the project root, not self-located ones, so every rule
-# must run with cwd = project root. --vanilla is added instead, which
-# skips .Rprofile (and therefore renv activation) without touching cwd --
-# confirmed necessary: this project's own renv library is missing packages
-# (e.g. base64enc) that renv.lock says should be there, so plain
-# renv-activated `Rscript` fails outright when the conda env isn't used.
-import os
-import shutil
-import subprocess
+#   snakemake --cores 3 --config rscript=/full/path/to/Rscript  # override which Rscript to use
 
+RSCRIPT = config.get("rscript", "Rscript")
 
-def _find_conda_env(name):
-    if shutil.which("conda") is not None:
-        try:
-            base = subprocess.run(
-                ["conda", "info", "--base"],
-                capture_output=True, text=True, check=True, timeout=10,
-            ).stdout.strip()
-        except (subprocess.SubprocessError, OSError):
-            base = None
-        if base:
-            candidate = os.path.join(base, "envs", name)
-            if os.path.isdir(candidate):
-                return candidate
-
-    home = os.path.expanduser("~")
-    for base_name in ("miniforge3", "mambaforge", "miniconda3", "anaconda3"):
-        candidate = os.path.join(home, base_name, "envs", name)
-        if os.path.isdir(candidate):
-            return candidate
-    return None
-
-
-_conda_env_path = _find_conda_env(config.get("conda_env", "rnaseq"))
-
-if _conda_env_path is not None:
-    RSCRIPT = config.get("rscript", os.path.join(_conda_env_path, "bin", "Rscript") + " --vanilla")
-else:
-    RSCRIPT = config.get("rscript", "Rscript")
+onstart:
+    shell(RSCRIPT + " -e 'renv::restore(prompt=FALSE)' && " + RSCRIPT + " -e 'renv::restore(prompt=FALSE)'")
 
 TISSUES = ["cornea", "limbus", "sclera"]
 ONTOLOGIES = ["BP", "CC", "MF"]
