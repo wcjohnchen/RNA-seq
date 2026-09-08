@@ -179,11 +179,6 @@ analyze_tissue <- function(tissue_name) {
   y_axis_cap <- 100
   res_df$padj_capped <- pmax(res_df$padj, 10^(-y_axis_cap))
 
-  # EnhancedVolcano's drawConnectors=TRUE uses ggrepel internally, which
-  # randomly jitters label positions to resolve overlaps -- reseed right
-  # here (not just once at the top of the script) so each tissue's plot is
-  # reproducible on its own, independent of how much randomness earlier
-  # tissues in this lapply() loop happened to consume.
   set.seed(42)
   p_volcano <- EnhancedVolcano(res_df,
                                 lab = res_df$gene_id,

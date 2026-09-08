@@ -1,16 +1,6 @@
 #!/usr/bin/env Rscript
-# Regenerates report.html from src/report_template.html, using each tissue's
-# actual results/ files -- the template keeps the exact page design fixed
-# (layout, prose, methodology); only the 27 figures and the numeric/
-# statistical values are pulled fresh each run.
-#
-# Narrative interpretation (the Overview paragraphs, and which specific
-# genes are called out per tissue's top-DE-genes heatmap caption) stays
-# static authored prose in the template -- not derived, since that's
-# biological judgment, not a mechanical stat.
-#
-# Usage:
-#   Rscript src/generate_report.R
+# Regenerates report.html from src/report_template.html, using each tissue's actual results/ files 
+# Usage: Rscript src/generate_report.R
 
 suppressMessages({
   library(base64enc)
@@ -26,10 +16,7 @@ log_msg <- function(...) {
 
 fmt_int <- function(x) format(round(x), big.mark = ",", scientific = FALSE, trim = TRUE)
 
-## =============================================================================
-## Step 1/3: read the two aggregate summaries (already computed by the
-## pipeline's own aggregate_summaries rule) plus a couple of per-tissue files
-## =============================================================================
+##### Step 1/3: read aggregate summaries
 
 log_msg("Step 1/3: Reading results/ files...")
 
@@ -58,19 +45,14 @@ for (t in TISSUES) {
   tokens[[paste0("GOMF_", t)]] <- fmt_int(gsea_cat("GO_MF")$n_terms)
   tokens[[paste0("KEGG_", t)]] <- fmt_int(gsea_cat("KEGG")$n_terms)
 
-  # Replicate counts per condition, from the normalized-counts table's own
-  # sample column names (e.g. "MW1_cornea_mock_1", "MW4_cornea_CoV2_1") --
-  # avoids hardcoding "3 vs 3", in case a future rerun drops a sample.
+
   norm_counts_path <- file.path("results", t, "de_tables", sprintf("%s_normalized_counts.tsv", t))
   header <- colnames(read.delim(norm_counts_path, nrows = 0, check.names = FALSE))
   sample_cols <- setdiff(header, "gene_id")
   tokens[[paste0("N_MOCK_", t)]] <- fmt_int(sum(grepl("_mock_", sample_cols)))
   tokens[[paste0("N_COV2_", t)]] <- fmt_int(sum(grepl("_CoV2_", sample_cols)))
 
-  # PCA PC1 % variance -- only ever burned into the pca.png axis label
-  # before, never saved anywhere machine-readable. deseq2.R now logs it
-  # into each tissue's qc_summary.txt (see that script's "PCA variance:"
-  # log_msg line) specifically so this script can read it back.
+
   qc_path <- file.path("results", t, "qc", "qc_summary.txt")
   qc_lines <- readLines(qc_path, warn = FALSE)
   pca_line <- grep("^PCA variance:", qc_lines, value = TRUE)
@@ -88,9 +70,7 @@ for (t in TISSUES) {
           tokens[[paste0("DOWN_", t)]], tokens[[paste0("GOBP_", t)]], pc1)
 }
 
-## =============================================================================
-## Step 2/3: encode the 27 figures (5 DESeq2 plots + 4 GSEA dotplots x 3 tissues)
-## =============================================================================
+##### Step 2/3: encode figures
 
 log_msg("Step 2/3: Encoding figures...")
 
@@ -114,9 +94,7 @@ for (name in names(image_map)) {
 }
 log_msg("Encoded %d figures", length(image_map))
 
-## =============================================================================
-## Step 3/3: fill the template and write report.html
-## =============================================================================
+##### Step 3/3: fill the template and write report.html
 
 log_msg("Step 3/3: Filling template and writing report.html...")
 
