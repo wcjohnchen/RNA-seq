@@ -176,7 +176,7 @@ mamba create -n snakemake_env -c bioconda -c conda-forge \
 A `Snakefile` at the project root automates script execution.  Run from the project root with the `snakemake_env` environment active:
 
 ```bash
-conda activate snakemake_env   # use full path
+conda activate snakemake_env   # use full environment path
 
 snakemake -n           # dry run
 snakemake --cores 3    # real run
