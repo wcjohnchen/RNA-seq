@@ -74,7 +74,7 @@ If `renv::restore()` reports that one or more packages failed to install, simply
 can occasionally hit a parallel-install ordering race on the first pass, where a package finishes building just before one of its own dependencies does. 
 A second pass only reinstalls packages that failed.
 
-Key package versions:
+R version: 4.5.3.  Key package versions:
 
 | Package | Version | Source |
 |---|---|---|
