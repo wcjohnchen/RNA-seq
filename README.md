@@ -206,7 +206,7 @@ RNA-seq/
 
 ## 7. Output files
 
-- **`<project root>/`** — `report.html` (interactive report)
+- **`<project root>/report.html`** — interactive report
 
 Per tissue, in `results/<tissue>/`:
 
