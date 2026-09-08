@@ -166,7 +166,7 @@ Rscript src/gsea.R \
 
 ### B. Snakemake
 
-Snakemake requires its own environment (it's a separate Python workflow tool, unrelated to the R packages above).  To create it:
+Snakemake requires a separate environment.  To create the environment:
 
 ```bash
 mamba create -n snakemake_env -c bioconda -c conda-forge \
