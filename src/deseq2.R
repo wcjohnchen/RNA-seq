@@ -39,6 +39,8 @@ cli <- parse_cli_args(list(
   tissues       = "cornea,limbus,sclera"
 ))
 
+set.seed(42)
+
 counts_file   <- cli$counts_file
 padj_cutoff   <- as.numeric(cli$padj_cutoff)
 lfc_cutoff    <- as.numeric(cli$lfc_cutoff)  # log2FC cutoff: > +lfc_cutoff up, < -lfc_cutoff down
@@ -142,6 +144,7 @@ analyze_tissue <- function(tissue_name) {
 
   pca_data <- plotPCA(vsd, intgroup = "condition", returnData = TRUE)
   pct_var <- round(100 * attr(pca_data, "percentVar"))
+  log_msg("PCA variance: PC1=%d%%, PC2=%d%%", pct_var[1], pct_var[2])
   p_pca <- ggplot(pca_data, aes(PC1, PC2, color = condition)) +
     geom_point(size = 3, shape = 1, stroke = 1.2) +
     xlab(sprintf("PC1: %d%% variance", pct_var[1])) +
@@ -176,6 +179,12 @@ analyze_tissue <- function(tissue_name) {
   y_axis_cap <- 100
   res_df$padj_capped <- pmax(res_df$padj, 10^(-y_axis_cap))
 
+  # EnhancedVolcano's drawConnectors=TRUE uses ggrepel internally, which
+  # randomly jitters label positions to resolve overlaps -- reseed right
+  # here (not just once at the top of the script) so each tissue's plot is
+  # reproducible on its own, independent of how much randomness earlier
+  # tissues in this lapply() loop happened to consume.
+  set.seed(42)
   p_volcano <- EnhancedVolcano(res_df,
                                 lab = res_df$gene_id,
                                 x = "log2FoldChange",
