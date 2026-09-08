@@ -173,7 +173,7 @@ mamba create -n snakemake_env -c bioconda -c conda-forge \
   --no-channel-priority snakemake-minimal=9.23.1
 ```
 
-A `Snakefile` at the project root automates execution of the DESeq2, GSEA, and report generation steps.  Run from the project root with the `snakemake_env` environment active:
+A `Snakefile` at the project root automates script execution.  Run from the project root with the `snakemake_env` environment active:
 
 ```bash
 conda activate snakemake_env   # use full path
