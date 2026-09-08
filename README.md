@@ -70,7 +70,9 @@ renv::restore()
 
 renv::restore() recreates the project's package environment using the versions recorded in `renv.lock` without modifying global R package library.
 
-If `renv::restore()` reports that one or more packages failed to install, simply run `renv::restore()` again. Bioconductor's deep dependency chains (e.g. `DESeq2` → ... → `DelayedArray`, `enrichplot` → `RSQLite`) can occasionally hit a parallel-install ordering race on the first pass, where a package finishes building just before one of its own dependencies does. A second pass only reinstalls whatever failed, and by then its dependencies will already be in place.
+If `renv::restore()` reports that one or more packages failed to install, simply run `renv::restore()` again. Bioconductor's deep dependency chains 
+can occasionally hit a parallel-install ordering race on the first pass, where a package finishes building just before one of its own dependencies does. 
+A second pass only reinstalls packages that failed.
 
 Key package versions:
 
@@ -171,19 +173,13 @@ mamba create -n snakemake_env -c bioconda -c conda-forge \
   --no-channel-priority snakemake-minimal=9.23.1
 ```
 
-A `Snakefile` at the project root automates execution of the DESeq2, GSEA, and report generation steps.  It runs plain `Rscript`, which uses the same `renv`-managed R environment as manual execution above — so complete that setup (`renv::restore()`) first.  Run from the project root with the `snakemake_env` environment active:
+A `Snakefile` at the project root automates execution of the DESeq2, GSEA, and report generation steps.  Run from the project root with the `snakemake_env` environment active:
 
 ```bash
 conda activate snakemake_env   # use full path
 
 snakemake -n           # dry run
 snakemake --cores 3    # real run
-```
-
-If your `Rscript` isn't on `PATH` (or you need a specific one), point to it explicitly:
-
-```bash
-snakemake --cores 3 --config rscript=/full/path/to/Rscript
 ```
 
 
