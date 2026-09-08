@@ -187,7 +187,9 @@ RNA-seq/
 │   └── GSE164073_Eye_count_matrix.csv   # input file, count matrix
 ├── src/
 │   ├── deseq2.R                         # differential expression analysis
-│   └── gsea.R                           # GSEA enrichment analysis
+│   ├── gsea.R                           # GSEA enrichment analysis
+│   ├── generate_report.R                # generate HTML report
+│   └── report_template.html             # template
 ├── Snakefile                            # optional Snakemake workflow
 ├── renv.lock                            # pinned R package versions
 ├── .Rprofile                            # activates renv for this project
