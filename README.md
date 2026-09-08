@@ -126,13 +126,14 @@ After completing setup using the R envirnoment specified in `renv.lock`, the ana
 
 ### A. Manual Execution
 
-Run `deseq2.R` first, followed by `gsea.R`.
+Run `deseq2.R` first, followed by `gsea.R`, then `generate_report.R` to build the interactive `report.html`.
 
 ```bash
 cd RNA-seq/ # run from the project root
 
 Rscript src/deseq2.R
 Rscript src/gsea.R
+Rscript src/generate_report.R
 ```
 
 Both scripts accept `--key=value` CLI flags.  Any flag left unset keeps its default value:
@@ -204,6 +205,8 @@ RNA-seq/
 
 
 ## 7. Output files
+
+- **<project root>** — `report.html` (interactive report)
 
 Per tissue, in `results/<tissue>/`:
 
