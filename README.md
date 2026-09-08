@@ -175,7 +175,7 @@ A `Snakefile` at the project root automates execution of the DESeq2, GSEA, and r
 conda activate snakemake_env   # use full path
 
 snakemake -n           # dry run
-snakemake --cores 3
+snakemake --cores 3    # real run
 ```
 
 
