@@ -206,7 +206,7 @@ RNA-seq/
 
 ## 7. Output files
 
-- **<project root>** — `report.html` (interactive report)
+- **`<project root>/`** — `report.html` (interactive report)
 
 Per tissue, in `results/<tissue>/`:
 
@@ -214,6 +214,7 @@ Per tissue, in `results/<tissue>/`:
 - **`plots/`** — `pca.png`, `sample_distance_heatmap.png`, `volcano.png`, `ma_plot.png`, `top_de_genes_heatmap.png`
 - **`qc/qc_summary.txt`** — filtering stats, size factors, DE gene count
 - **`gsea/`** — `<tissue>_GSEA_GO_{BP,CC,MF}.tsv`, `<tissue>_GSEA_KEGG.tsv` result tables, plus a corresponding `_dotplot.png` for each category
+
 
 ## 8. Notes
 
