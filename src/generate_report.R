@@ -1,6 +1,5 @@
 #!/usr/bin/env Rscript
-# Regenerates report.html from src/report_template.html, using each tissue's actual results/ files 
-# Usage: Rscript src/generate_report.R
+# Regenerates report.html from src/report_template.html, using each tissue's actual results/ files
 
 suppressMessages({
   library(base64enc)
